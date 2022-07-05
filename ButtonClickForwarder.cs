@@ -1,22 +1,24 @@
-﻿
-using UdonSharp;
+﻿using UdonSharp;
 using UnityEngine;
 using VRC.SDKBase;
 using VRC.Udon;
 
-public class ButtonClickForwarder : UdonSharpBehaviour
+namespace iffnsStuff.iffnsVRCStuff.iffnsClickableCockpit
 {
-    public UdonBehaviour TargetScript;
-    [SerializeField] string UdonFunctionName = "KeyboardInput";
-    [HideInInspector] public ButtonClickForwarder LinkedForwarder;
-
-    private void Start()
+    public class ButtonClickForwarder : UdonSharpBehaviour
     {
-        enabled = false;
-    }
+        public UdonBehaviour TargetScript;
+        [SerializeField] string UdonFunctionName = "KeyboardInput";
+        [HideInInspector] public ButtonClickForwarder LinkedForwarder;
 
-    public void RunDfuncFunction()
-    {
-        TargetScript.SendCustomEvent(UdonFunctionName);
+        private void Start()
+        {
+            enabled = false;
+        }
+
+        public void RunDfuncFunction()
+        {
+            TargetScript.SendCustomEvent(UdonFunctionName);
+        }
     }
 }

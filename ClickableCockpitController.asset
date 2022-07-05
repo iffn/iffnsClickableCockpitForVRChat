@@ -21,7 +21,7 @@ MonoBehaviour:
   compiledVersion: 2
   behaviourSyncMode: 0
   hasInteractEvent: 0
-  scriptID: 1568771826597589396
+  scriptID: 9114712736256707247
   serializationData:
     SerializedFormat: 2
     SerializedBytes: 
@@ -62,7 +62,8 @@ MonoBehaviour:
       Data: 3|System.RuntimeType, mscorlib
     - Name: 
       Entry: 1
-      Data: ButtonClickForwarder[], Assembly-CSharp
+      Data: iffnsStuff.iffnsVRCStuff.iffnsClickableCockpit.ButtonClickForwarder[],
+        Assembly-CSharp
     - Name: 
       Entry: 8
       Data: 
@@ -572,7 +573,8 @@ MonoBehaviour:
       Data: 34|System.RuntimeType, mscorlib
     - Name: 
       Entry: 1
-      Data: ButtonClickForwarder, Assembly-CSharp
+      Data: iffnsStuff.iffnsVRCStuff.iffnsClickableCockpit.ButtonClickForwarder,
+        Assembly-CSharp
     - Name: 
       Entry: 8
       Data: 
