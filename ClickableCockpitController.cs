@@ -58,7 +58,7 @@ public class ClickableCockpitController : UdonSharpBehaviour
             newForwarderTransform.transform.GetComponent<MeshRenderer>().enabled = false;
 
             ButtonClickForwarder newForwarder = newForwarderTransform.GetComponent<ButtonClickForwarder>();
-            newForwarder.LinkedDFUNC = forwarder.LinkedDFUNC;
+            newForwarder.TargetScript = forwarder.TargetScript;
             newForwarder.LinkedForwarder = forwarder;
             forwarder.LinkedForwarder = newForwarder;
             

@@ -6,7 +6,7 @@ using VRC.Udon;
 
 public class ButtonClickForwarder : UdonSharpBehaviour
 {
-    public UdonBehaviour LinkedDFUNC;
+    public UdonBehaviour TargetScript;
     [SerializeField] string UdonFunctionName = "KeyboardInput";
     [HideInInspector] public ButtonClickForwarder LinkedForwarder;
 
@@ -17,6 +17,6 @@ public class ButtonClickForwarder : UdonSharpBehaviour
 
     public void RunDfuncFunction()
     {
-        LinkedDFUNC.SendCustomEvent(UdonFunctionName);
+        TargetScript.SendCustomEvent(UdonFunctionName);
     }
 }
