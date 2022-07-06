@@ -18,7 +18,7 @@ namespace iffnsStuff.iffnsVRCStuff.iffnsClickableCockpit
         Transform cockpitSimulator;
 
         Quaternion handOffset = Quaternion.Euler(0, 60, 0);
-        const float rayLength = 0.5f;
+        const float rayLength = 1f;
 
         bool seated = false;
 
@@ -128,11 +128,6 @@ namespace iffnsStuff.iffnsVRCStuff.iffnsClickableCockpit
 
                 Vector3 direction = Networking.LocalPlayer.GetTrackingData(VRCPlayerApi.TrackingDataType.Head).rotation * Vector3.forward;
                 localDirection = transform.InverseTransformDirection(direction);
-
-                /*
-                TestDirectionIndicator.transform.localPosition = localOrigin;
-                TestDirectionIndicator.transform.localRotation = Quaternion.LookRotation(localDirection);
-                */
             }
         }
 
