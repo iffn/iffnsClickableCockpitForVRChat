@@ -18,6 +18,8 @@ namespace iffnsStuff.iffnsVRCStuff.iffnsClickableCockpit
 
         public void RunDfuncFunction()
         {
+            //Debug.Log($"Run function for {gameObject.name}");
+
             TargetScript.SendCustomEvent(UdonFunctionName);
         }
     }

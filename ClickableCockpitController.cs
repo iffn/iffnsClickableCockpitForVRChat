@@ -10,7 +10,6 @@ namespace iffnsStuff.iffnsVRCStuff.iffnsClickableCockpit
     public class ClickableCockpitController : UdonSharpBehaviour
     {
         [SerializeField] ButtonClickForwarder[] ButtonHolders;
-        [SerializeField] Transform TestDirectionIndicator;
         [SerializeField] LayerMask ButtonColliderMask;
         [SerializeField] Transform LeftVRHandIndicator;
         [SerializeField] Transform RightVRHandIndicator;
@@ -241,9 +240,17 @@ namespace iffnsStuff.iffnsVRCStuff.iffnsClickableCockpit
         }
         */
 
+        float lastTimePressed = 0;
+
         public override void InputUse(bool value, UdonInputEventArgs args)
         {
+
+            if (!seated) return;
+
             if (!value) return;
+
+            if (lastTimePressed == Time.time) return; //For some reason, VRChat runs this function twice in the same frame
+            lastTimePressed = Time.time;
 
             if (Networking.LocalPlayer.IsUserInVR())
             {
