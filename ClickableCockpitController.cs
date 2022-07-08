@@ -7,6 +7,7 @@ using VRC.Udon.Common;
 namespace iffnsStuff.iffnsVRCStuff.iffnsClickableCockpit
 {
     [RequireComponent(typeof(VRCStation))]
+
     public class ClickableCockpitController : UdonSharpBehaviour
     {
         [SerializeField] ButtonClickForwarder[] ButtonHolders;
@@ -94,6 +95,9 @@ namespace iffnsStuff.iffnsVRCStuff.iffnsClickableCockpit
 
             if (Networking.LocalPlayer.IsUserInVR())
             {
+                if(RightForwarder != null) RightForwarder.LinkedForwarder.gameObject.SetActive(false);
+                if(LeftForwarder != null) LeftForwarder.LinkedForwarder.gameObject.SetActive(false);
+
                 LeftVRHandIndicator.gameObject.SetActive(false);
                 RightVRHandIndicator.gameObject.SetActive(false);
             }
