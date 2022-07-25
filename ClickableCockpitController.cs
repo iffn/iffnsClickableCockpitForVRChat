@@ -10,11 +10,19 @@ namespace iffnsStuff.iffnsVRCStuff.iffnsClickableCockpit
 
     public class ClickableCockpitController : UdonSharpBehaviour
     {
+        [Header("Assign the buttons here:", order = 0)]
+        [Header("Note: All buttons should be a child of this transform", order = 1)]
         [SerializeField] ButtonClickForwarder[] ButtonHolders;
+        [Header("Recommended: 31 = OnBoardVehicleLayer")]
         [SerializeField] LayerMask ButtonColliderMask;
+        [SerializeField] int ButtonLayer;
+        [Header("Define your own type of hand indicators for VR:")]
         [SerializeField] Transform LeftVRHandIndicator;
         [SerializeField] Transform RightVRHandIndicator;
+        [Header("Needs an empty game object reference in order to instantiate a holder:")]
         [SerializeField] GameObject EmptyGameObjectReferenceBecauseUdonCannotInstantiateEmptyGameobjectsOnItsOwn;
+        //[Header("Debug indicator to show if the transformations work correctly on desktop:")]
+        //[SerializeField] Transform DebugTransform;
 
         Transform cockpitSimulator;
 
@@ -48,8 +56,8 @@ namespace iffnsStuff.iffnsVRCStuff.iffnsClickableCockpit
             foreach (ButtonClickForwarder forwarder in ButtonHolders)
             {
                 //continue;
-
-                Transform newForwarderTransform = Instantiate(forwarder.gameObject).transform;
+                GameObject newForwarderObject = Instantiate(forwarder.gameObject);
+                Transform newForwarderTransform = newForwarderObject.transform;
                 newForwarderTransform.parent = cockpitSimulator.transform;
 
                 newForwarderTransform.localPosition = forwarder.transform.localPosition;
@@ -57,6 +65,7 @@ namespace iffnsStuff.iffnsVRCStuff.iffnsClickableCockpit
 
                 newForwarderTransform.transform.GetComponent<Collider>().enabled = true;
                 newForwarderTransform.transform.GetComponent<MeshRenderer>().enabled = false;
+                newForwarderObject.layer = ButtonLayer;
 
                 ButtonClickForwarder newForwarder = newForwarderTransform.GetComponent<ButtonClickForwarder>();
                 newForwarder.TargetScript = forwarder.TargetScript;
@@ -68,6 +77,7 @@ namespace iffnsStuff.iffnsVRCStuff.iffnsClickableCockpit
 
             LeftVRHandIndicator.gameObject.SetActive(false);
             RightVRHandIndicator.gameObject.SetActive(false);
+            //DebugTransform.parent = cockpitSimulatorObject.transform;
         }
 
         public override void OnStationEntered(VRCPlayerApi player)
@@ -132,6 +142,9 @@ namespace iffnsStuff.iffnsVRCStuff.iffnsClickableCockpit
 
                 Vector3 direction = Networking.LocalPlayer.GetTrackingData(VRCPlayerApi.TrackingDataType.Head).rotation * Vector3.forward;
                 localDirection = transform.InverseTransformDirection(direction);
+
+                //DebugTransform.localPosition = localOrigin;
+                //DebugTransform.localRotation = Quaternion.LookRotation(localDirection);
             }
         }
 
@@ -154,7 +167,7 @@ namespace iffnsStuff.iffnsVRCStuff.iffnsClickableCockpit
 
                 leftRay = new Ray(origin: cockpitSimulator.TransformPoint(localHandOriginLeft), direction: cockpitSimulator.TransformDirection(localHandDirectionLeft));
 
-                if (Physics.Raycast(ray: leftRay, hitInfo: out leftHit, maxDistance: rayLength))
+                if (Physics.Raycast(ray: leftRay, hitInfo: out leftHit, maxDistance: rayLength, layerMask: ButtonColliderMask))
                 {
                     if (leftHit.collider != null)
                     {
